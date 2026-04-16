@@ -9,21 +9,21 @@ export function createClient(): SupabaseClient | null {
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 
   console.log("[v0] Supabase config:", {
     url: supabaseUrl ? "✓ URL found" : "✗ URL missing",
-    key: supabaseAnonKey ? "✓ Key found" : "✗ Key missing",
+    key: supabaseKey ? "✓ Key found" : "✗ Key missing",
   })
 
-  if (!supabaseUrl || !supabaseAnonKey) {
+  if (!supabaseUrl || !supabaseKey) {
     console.warn(
-      "Faltan las variables de entorno de Supabase. Verifica NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "Faltan las variables de entorno de Supabase. Verifica NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
     )
     return null
   }
 
-  client = createBrowserClient(supabaseUrl, supabaseAnonKey, {
+  client = createBrowserClient(supabaseUrl, supabaseKey, {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
