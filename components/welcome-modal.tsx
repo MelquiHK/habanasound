@@ -79,7 +79,7 @@ export function WelcomeModal() {
 
           <div className="flex flex-col gap-3">
             <Button asChild size="lg" className="w-full gap-2" onClick={handleClose}>
-              <Link href="/auth/register">
+              <Link href="/register">
                 <UserPlus className="w-5 h-5" />
                 Crear mi Cuenta
                 <ArrowRight className="w-4 h-4 ml-auto" />

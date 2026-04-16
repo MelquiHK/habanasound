@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -44,7 +43,13 @@ export default function RegisterPage() {
       return
     }
 
-    const result = await register(name, email, password, phone)
+    if (!email) {
+      setError("Debes ingresar un correo electrónico")
+      setIsLoading(false)
+      return
+    }
+
+    const result = await register(name || email.split("@")[0], email, password, phone)
 
     if (result.success) {
       setFirstVisitDone()
@@ -67,18 +72,15 @@ export default function RegisterPage() {
               </div>
               <h2 className="text-2xl font-bold text-foreground mb-2">¡Cuenta Creada!</h2>
               <p className="text-muted-foreground mb-6">
-                Tu cuenta ha sido creada exitosamente. Revisa tu correo electrónico para confirmar tu cuenta.
+                Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión y administrar tu tienda.
               </p>
               <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl mb-6">
                 <p className="text-sm text-amber-800">
-                  <strong>Importante:</strong> Guarda estos datos para acceder desde cualquier dispositivo:
-                </p>
-                <p className="text-sm text-amber-800 mt-2">
-                  <strong>Correo:</strong> {email}
+                  <strong>Importante:</strong> Guarda tu correo y contraseña para acceder desde cualquier dispositivo.
                 </p>
               </div>
               <Button asChild size="lg" className="w-full">
-                <Link href="/">Ir a la Tienda</Link>
+                <Link href="/login">Ir a Iniciar Sesión</Link>
               </Button>
             </CardContent>
           </Card>
@@ -103,7 +105,7 @@ export default function RegisterPage() {
               <AnimatedLogo size="large" />
             </div>
             <CardTitle className="text-2xl">Crear Cuenta</CardTitle>
-            <CardDescription>Únete a Habana Sound y disfruta de todos los beneficios</CardDescription>
+            <CardDescription>Únete a Habana Sound y controla tu tienda desde tu cuenta.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -134,7 +136,6 @@ export default function RegisterPage() {
                   placeholder="+53 5XXXXXXX"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  required
                   className="h-11"
                 />
               </div>
@@ -185,17 +186,15 @@ export default function RegisterPage() {
                   <Lock className="w-4 h-4 text-primary" />
                   Confirmar Contraseña
                 </Label>
-                <div className="relative">
-                  <Input
-                    id="confirmPassword"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Repite tu contraseña"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    className="h-11 pr-10"
-                  />
-                </div>
+                <Input
+                  id="confirmPassword"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Repite tu contraseña"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  className="h-11"
+                />
               </div>
 
               {error && (
@@ -210,8 +209,7 @@ export default function RegisterPage() {
 
               <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
                 <p className="text-xs text-amber-800">
-                  <strong>Importante:</strong> Recuerda tu correo electrónico y contraseña para poder acceder a tu
-                  cuenta desde cualquier dispositivo.
+                  <strong>Importante:</strong> Guarda tu correo electrónico y contraseña para poder acceder a tu cuenta desde cualquier dispositivo.
                 </p>
               </div>
 
@@ -222,10 +220,7 @@ export default function RegisterPage() {
             </form>
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              ¿Ya tienes una cuenta?{" "}
-              <Link href="/auth/login" className="text-primary font-medium hover:underline">
-                Inicia sesión aquí
-              </Link>
+              ¿Ya tienes una cuenta? <Link href="/login" className="text-primary font-medium hover:underline">Inicia sesión aquí</Link>
             </p>
           </CardContent>
         </Card>

@@ -35,12 +35,12 @@ export default function LoginPage() {
     setError("")
     setIsLoading(true)
 
-    const success = await login(loginUsername, loginPassword)
+    const result = await login(loginUsername, loginPassword)
 
-    if (success) {
+    if (result.success) {
       router.push("/")
     } else {
-      setError("Usuario o contraseña incorrectos")
+      setError(result.error || "Usuario o contraseña incorrectos")
     }
 
     setIsLoading(false)
@@ -57,18 +57,24 @@ export default function LoginPage() {
       return
     }
 
+    if (!regEmail) {
+      setError("Debes ingresar un correo electrónico")
+      setIsLoading(false)
+      return
+    }
+
     if (regPassword.length < 6) {
       setError("La contraseña debe tener al menos 6 caracteres")
       setIsLoading(false)
       return
     }
 
-    const success = await register(regUsername, regEmail, regPassword, "")
+    const result = await register(regUsername, regEmail, regPassword, "")
 
-    if (success) {
+    if (result.success) {
       router.push("/")
     } else {
-      setError("El nombre de usuario ya existe")
+      setError(result.error || "Error al crear la cuenta")
     }
 
     setIsLoading(false)

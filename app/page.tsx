@@ -1,5 +1,5 @@
 import { cookies } from "next/headers"
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/lib/supabase/server"
 import HomePage from "@/components/home-page"
 
 export default async function Page() {

@@ -116,13 +116,13 @@ export function Header() {
           ) : (
             <div className="hidden sm:flex items-center gap-2">
               <Button variant="ghost" size="sm" asChild className="rounded-full gap-1.5">
-                <Link href="/auth/login">
+                <Link href="/login">
                   <LogIn className="w-4 h-4" />
                   Iniciar Sesión
                 </Link>
               </Button>
               <Button size="sm" asChild className="rounded-full gap-1.5">
-                <Link href="/auth/register">
+                <Link href="/register">
                   <UserPlus className="w-4 h-4" />
                   Registrarse
                 </Link>
@@ -182,7 +182,7 @@ export function Header() {
                   <>
                     <div className="border-t border-border my-2" />
                     <Link
-                      href="/auth/login"
+                      href="/login"
                       onClick={() => setMobileMenuOpen(false)}
                       className="text-foreground hover:text-primary hover:bg-primary/5 transition-all font-medium text-lg py-3 px-4 rounded-xl flex items-center gap-2"
                     >
@@ -190,7 +190,7 @@ export function Header() {
                       Iniciar Sesión
                     </Link>
                     <Link
-                      href="/auth/register"
+                      href="/register"
                       onClick={() => setMobileMenuOpen(false)}
                       className="text-primary-foreground bg-primary hover:bg-primary/90 transition-all font-medium text-lg py-3 px-4 rounded-xl flex items-center gap-2"
                     >
